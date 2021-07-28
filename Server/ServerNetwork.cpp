@@ -10,7 +10,7 @@
 using namespace std;
 
 Server *server;
-int client_sd; //file descriptor containing the values returned by the socket system call
+int server_sd;//file descriptor containing the values returned by the socket system call
 struct sockaddr_in server_addr; //structure containing an internet address, in out case the address of our client
 struct sockaddr_in from; //structure containing an internet address, in out case the address of our client
 unsigned short portNum;
@@ -61,12 +61,12 @@ ServerNetwork::ServerNetwork() {}
 void ServerNetwork::Initialize(void *data, unsigned short port) {
     server=(Server *)data;
     portNum=port;
-    if ((client_sd=socket (AF_INET, SOCK_STREAM, 0)) < 0) {
+    if ((server_sd=socket (AF_INET, SOCK_STREAM, 0)) < 0) {
         cout << "Error establishing connection." << endl;
         exit(1);
     }
     int on=1;
-    setsockopt(client_sd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on));
+    setsockopt(server_sd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on));
     bzero(&server_addr,sizeof(server_addr));
     bzero(&from,sizeof(from));
     cout << "Server socket has been created" << endl;
@@ -76,13 +76,13 @@ void ServerNetwork::Initialize(void *data, unsigned short port) {
     server_addr.sin_port = htons(portNum);
 
     //binding socket = assigning an address to a socket
-    if (bind(client_sd, (struct sockaddr *) &server_addr, sizeof(struct sockaddr)) ==1) {
+    if (bind(server_sd, (struct sockaddr *) &server_addr, sizeof(struct sockaddr)) ==1) {
         cout << "Error binding socket" << endl;
         exit(1);
     }
 }
 void ServerNetwork::Listen() {
-    if (listen(client_sd, 2) == -1) {
+    if (listen(server_sd, 2) == -1) {
         cout << "Error on listen" << endl;
         exit(1);
     }
@@ -99,7 +99,7 @@ void ServerNetwork::Run() {
         socklen_t length=sizeof(from);
         cout<<"Listening on port "<<portNum<<endl;
         fflush(stdout);
-        if((client=accept(client_sd,(struct sockaddr *) &from,&length))<0){
+        if((client=accept(server_sd,(struct sockaddr *) &from,&length))<0){
             perror("Error on accepting client connection.");
             continue;
         }

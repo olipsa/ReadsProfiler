@@ -1,1 +1,0 @@
-/usr/bin/c++ -pthread -g CMakeFiles/untitled2.dir/Server/main.cpp.o CMakeFiles/untitled2.dir/Server/Server.cpp.o CMakeFiles/untitled2.dir/Server/ServerNetwork.cpp.o -o untitled2 
