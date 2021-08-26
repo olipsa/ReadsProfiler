@@ -4,8 +4,10 @@
 #pragma once
 
 #include "ServerNetwork.h"
+#include "Database.h"
 
 class Server {
+    Database database;
     ServerNetwork server_network;
 public:
     Server();
