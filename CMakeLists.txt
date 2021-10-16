@@ -6,12 +6,26 @@ set(CMAKE_CXX_STANDARD 14)
 set(PROJECT_HEADERS_SERVER
         Server/Server.h
         Server/ServerNetwork.h
-        Server/Database.h)
+        Server/Database.h
+        Server/Command.h
+        Server/Register.h)
+
 set(PROJECT_SOURCES_SERVER
         Server/main.cpp
         Server/Server.cpp
         Server/ServerNetwork.cpp
-        Server/Database.cpp )
+        Server/Database.cpp
+        Server/Command.cpp
+        Server/Register.cpp )
+
+set(PROJECT_HEADERS_CLIENT
+        Client/Client.h
+        Client/ClientNetwork.h)
+
+set(PROJECT_SOURCES_CLIENT
+        Client/main.cpp
+        Client/Client.cpp
+        Client/ClientNetwork.cpp)
 
 find_package(SQLite3)
 
@@ -19,6 +33,7 @@ find_package(SQLite3)
 SET(CMAKE_CXX_FLAGS "-lsqlite3 -pthread")
 
 add_executable(server ${PROJECT_SOURCES_SERVER} ${PROJECT_HEADERS_SERVER})
+add_executable(client ${PROJECT_SOURCES_CLIENT} ${PROJECT_HEADERS_CLIENT})
 
 if (SQLITE3_FOUND)
     include_directories(${SQLITE3_INCLUDE_DIRS})
@@ -28,13 +43,4 @@ include_directories(/usr/include)
 link_directories(/usr/lib)
 target_link_libraries(server sqlite3)
 
-set(PROJECT_HEADERS_CLIENT
-        Client/Client.h
-        Client/ClientNetwork.h)
-set(PROJECT_SOURCES_CLIENT
-        Client/main.cpp
-        Client/Client.cpp
-        Client/ClientNetwork.cpp)
-
-add_executable(client ${PROJECT_SOURCES_CLIENT} ${PROJECT_HEADERS_CLIENT})
 

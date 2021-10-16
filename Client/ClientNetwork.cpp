@@ -7,10 +7,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <ifaddrs.h>
 #include <cstring>
 #include "ClientNetwork.h"
 #include "Client.h"
+
 using namespace std;
 
 Client * client_net;
@@ -39,47 +39,37 @@ void ClientNetwork::connect(const char *address, int portNum) {
         cout<<"Connection to the server failed\n";
         exit(0);
     }
-    int bufsize=1024;
-    char buffer[bufsize];
     cout<<"Connected to the server"<<endl;
-    cout<<"Enter your message: ";
-    fflush(stdout);
-    cin>>buffer;
-    if(write(client_sd,buffer,bufsize)==-1){
+    isConnected=true;
+
+    char *buffer;
+    while(isConnected){
+        cout<<"Enter your message: ";
+        fflush(stdout);
+        cin.getline(buffer,1024);
+        send(buffer);
+        receive();
+    }
+
+    close(client_sd);
+
+}
+void ClientNetwork::send(char *buffer) {
+    if(write(client_sd,buffer,strlen(buffer))==-1){
         cout<<"Error when sending message\n";
         exit(0);
     }
     cout<<"Message sent successfully\n";
-    if(read(client_sd, buffer,bufsize)==-1){
+}
+void ClientNetwork::receive() {
+    char buffer[1024]={0};
+    if(read(client_sd, buffer,1024)==-1){
         cout<<"Error when receiving message\n";
         exit(0);
     }
-    cout<<"Received message is: \""<<buffer<<"\"\n";
-    cout<<"Your ip address is: "<<getIPAddress()<<endl;
-    close(client_sd);
-
-}
-string ClientNetwork::getIPAddress() {
-    string ipAddress="Unable to get IP Address";
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    int success = 0;
-    // retrieve the current interfaces - returns 0 on success
-    success = getifaddrs(&interfaces);
-    if (success == 0) {
-        // Loop through linked list of interfaces
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                // Check if interface is en0 which is the wifi connection on the iPhone
-                if(strcmp(temp_addr->ifa_name, "en0")){
-                    ipAddress=inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_addr)->sin_addr);
-                }
-            }
-            temp_addr = temp_addr->ifa_next;
-        }
+    if(strcmp(buffer,"Exited program...")==0){
+        isConnected=false;
     }
-    // Free memory
-    freeifaddrs(interfaces);
-    return ipAddress;
+    cout<<"Received message is: \""<<buffer<<"\"\n";
+
 }

@@ -1,8 +1,7 @@
 //
 // Created by ondina on 27.07.2021.
 //
-#ifndef UNTITLED2_CLIENTNETWORK_H
-#define UNTITLED2_CLIENTNETWORK_H
+#pragma once
 #include <string>
 using namespace std;
 
@@ -11,9 +10,10 @@ class ClientNetwork {
 public:
     ClientNetwork(void *);
     void create_socket();
-    string getIPAddress();
     void connect(const char *, int );
+    void send(char[]);
+    void receive();
 };
-#endif //UNTITLED2_CLIENTNETWORK_H
+
 
 

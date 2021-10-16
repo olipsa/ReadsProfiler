@@ -11,7 +11,9 @@ class Server {
     ServerNetwork server_network;
 public:
     Server();
+    ~Server();
     void Start();
+    Database getDatabase();
 };
 
 

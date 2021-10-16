@@ -3,10 +3,6 @@
 //
 #include<vector>
 #include <sqlite3.h>
-struct Data {
-    int rows = 0;
-    std::vector<std::string> vector;
-};
 
 class Database {
     sqlite3 *database;
@@ -14,9 +10,13 @@ class Database {
     int status;
 public:
     Database();
+    ~Database();
     bool OpenDatabase(const char *);
     bool ExecuteQuery(const std::string &);
+    static int callback(void *data, int argc, char **argv, char **azColName);
+    bool GetQueryResults(const std::string &,std::vector<std::string>&);
     void CloseDatabase();
 
 };
+
 
