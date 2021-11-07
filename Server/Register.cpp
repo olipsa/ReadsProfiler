@@ -10,14 +10,13 @@ using namespace std;
 Register::Register(vector<string> arguments,Server *server) {
     this->arguments=arguments;
     this->server=server;
-    cout<<"inside Register"<<endl;
 }
 string Register::Execute() {
-    if(arguments.size()!=3)
+    if(arguments.size()!=2)
         return "After register you should type your username and password separated by space.";
-    string username=arguments[1];
-    string password=arguments[2];
-    string sql="SELECT * FROM users WHERE username =\" "+username+"\"";
+    string username=arguments[0];
+    string password=arguments[1];
+    string sql="SELECT * FROM users WHERE username =\""+username+"\"";
     vector<string> query_results;
     Database db=server->getDatabase();
     if(db.GetQueryResults(sql,query_results)) {
