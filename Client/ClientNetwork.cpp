@@ -47,8 +47,11 @@ void ClientNetwork::connect(const char *address, int portNum) {
         cout<<"Enter your message: ";
         fflush(stdout);
         cin.getline(buffer,1024);
+        send_length(strlen(buffer));
         send(buffer);
-        receive();
+        int length=receive_length();
+        receive(length);
+
     }
 
     close(client_sd);
@@ -61,15 +64,31 @@ void ClientNetwork::send(char *buffer) {
     }
     cout<<"Message sent successfully\n";
 }
-void ClientNetwork::receive() {
-    char buffer[1024]={0};
-    if(read(client_sd, buffer,1024)==-1){
+void ClientNetwork::send_length(int length) {
+    if(write(client_sd,&length,sizeof(length))==-1){
+        cout<<"Error when sending message\n";
+        exit(0);
+    }
+}
+void ClientNetwork::receive(int length) {
+    string message;
+    message.resize(length);
+    if(read(client_sd, &message[0],length)==-1){
         cout<<"Error when receiving message\n";
         exit(0);
     }
-    if(strcmp(buffer,"Exited program...")==0){
+    if(message == "Exited program..."){
         isConnected=false;
     }
-    cout<<"Received message is: \""<<buffer<<"\"\n";
+    cout<<"Received message is: \""<<message.c_str()<<"\"\n";
+
+}
+int ClientNetwork::receive_length() {
+    int length;
+    if(read(client_sd,&length,sizeof(int))==-1){
+        cout<<"Error when receiving length\n";
+        return -1;
+    }
+    return length;
 
 }

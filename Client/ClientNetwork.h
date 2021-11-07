@@ -12,7 +12,10 @@ public:
     void create_socket();
     void connect(const char *, int );
     void send(char[]);
-    void receive();
+    void send_length(int);
+    void receive(int);
+    int receive_length();
+
 };
 
 
