@@ -1,1 +1,0 @@
-/usr/bin/c++ -lsqlite3 -pthread -g CMakeFiles/client.dir/Client/main.cpp.o CMakeFiles/client.dir/Client/Client.cpp.o CMakeFiles/client.dir/Client/ClientNetwork.cpp.o -o client 

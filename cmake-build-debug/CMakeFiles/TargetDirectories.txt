@@ -1,4 +1,0 @@
-/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/client.dir
-/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir
