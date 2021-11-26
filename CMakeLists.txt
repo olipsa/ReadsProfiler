@@ -7,16 +7,18 @@ set(PROJECT_HEADERS_SERVER
         Server/Server.h
         Server/ServerNetwork.h
         Server/Database.h
-        Server/Command.h
-        Server/Register.h)
+        Server/Commands/Command.h
+        Server/Commands/Register.h
+        Server/Commands/Login.h)
 
 set(PROJECT_SOURCES_SERVER
         Server/main.cpp
         Server/Server.cpp
         Server/ServerNetwork.cpp
         Server/Database.cpp
-        Server/Command.cpp
-        Server/Register.cpp )
+        Server/Commands/Command.cpp
+        Server/Commands/Register.cpp
+        Server/Commands/Login.cpp Server/Commands/Search.cpp Server/Commands/Search.h)
 
 set(PROJECT_HEADERS_CLIENT
         Client/Client.h

@@ -1,14 +1,14 @@
 //
 // Created by ondina on 19.07.2021.
 //
-
 #include <netinet/in.h>
 #include <strings.h>
 #include <unistd.h>
 #include <cstring>
 #include "ServerNetwork.h"
 #include "Server.h"
-#include "Register.h"
+#include "Commands/Register.h"
+#include "Commands/Login.h"
 #include <algorithm>
 #include <string>
 using namespace std;
@@ -159,6 +159,14 @@ int ServerNetwork::IsValid(string buffer, string& message) {
         Register registerCommand(argument_list,server);
         message = registerCommand.Execute();
         return 1;
+    }
+    else if(command=="login"){
+        Login loginCommand(argument_list,server);
+        message = loginCommand.Execute();
+        return 1;
+    }
+    else if(command=="search"){
+
     }
     else if(command=="exit")
         return -1;
