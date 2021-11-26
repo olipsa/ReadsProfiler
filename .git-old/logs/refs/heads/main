@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 bd755d251a07e846f859694f459c9031c6c32079 ondina <ondina_patricia@yahoo.com> 1627405723 +0300	branch: Created from master^0
+bd755d251a07e846f859694f459c9031c6c32079 8514e542c908364c8c7abe4aab44421a2d523ce6 ondina <ondina_patricia@yahoo.com> 1627406139 +0300	commit: Initial commit
+8514e542c908364c8c7abe4aab44421a2d523ce6 3056a0d6b25a124be3716a3e9ce4281fd3c5dd49 ondina <ondina_patricia@yahoo.com> 1627500895 +0300	commit: Client-server connection implemented
+3056a0d6b25a124be3716a3e9ce4281fd3c5dd49 fc46bf6de725ffe88c5ac225bffc86ab2adf49b9 ondina <ondina_patricia@yahoo.com> 1629969395 +0300	commit: Connection to SQLite database
+fc46bf6de725ffe88c5ac225bffc86ab2adf49b9 896d8e7bdc33dd8310ba33540abc1bb4928b0f1d ondina <ondina_patricia@yahoo.com> 1634418272 +0300	commit: Register command (with some error when receiving message from socket by client)
+896d8e7bdc33dd8310ba33540abc1bb4928b0f1d 2ba87e69ae426922c134beecc479bf693f725d47 ondina <ondina_patricia@yahoo.com> 1636324672 +0200	commit: Register command done
+2ba87e69ae426922c134beecc479bf693f725d47 411c043b73b4f20eb3e72d928d2e0befd0218d8f ondina <ondina_patricia@yahoo.com> 1636324736 +0200	commit: Updated send & receive to receive message length first
