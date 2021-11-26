@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ondina/CLionProjects/ReadsProfiler/Client/Client.cpp
+Client.h
+/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
+
+/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
+ClientNetwork.h
+/home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
+
+/home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.cpp
+sys/socket.h
+-
+iostream
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+unistd.h
+-
+cstring
+-
+ClientNetwork.h
+/home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
+Client.h
+/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
+
+/home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
+string
+-
+
+/home/ondina/CLionProjects/ReadsProfiler/Client/main.cpp
+Client.h
+/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
+
