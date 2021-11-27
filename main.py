@@ -7,6 +7,8 @@ import sqlite3
 import urllib.request
 import re
 from random import randint
+from bs4 import BeautifulSoup
+
 
 con = sqlite3.connect('main.db')
 cursor = con.cursor()
@@ -45,7 +47,7 @@ def add_book_genres(page_content, book_index):
     genre_list = re.findall("<a class=\"actionLinkLite bookPageGenreLink\" href=\"/genres/(.*)</a>", page_content)
     for i, genre in enumerate(genre_list):
         index = genre.index('>')
-        genre_list[i] = genre[index + 1:]
+        genre_list[i] = genre[index + 1:].replace("amp;", "")
     genre_dict = dict.fromkeys(genre_list)
     genre_dict.pop('Audiobook', None)
     genre_list = list(genre_dict)
@@ -60,8 +62,30 @@ def add_author_genres(author_name, author_link):
     global con, cursor
     sql = f'SELECT * FROM author_genres WHERE author="{author_name}"'
     if cursor.execute(sql).fetchone() is None:
-        print("Author not listed")
         author_content = get_content_url(author_link)
+        try:
+            genres = re.search(
+                "<div class=\"dataTitle\">Genre</div>\n\s*<div class=\"dataItem\">"
+                "(.*)"
+                "<div class=\"aboutAuthorInfo\">",
+                author_content, re.DOTALL).group(1)
+        except AttributeError:
+            print("Author genres not found")
+            return
+        genres = genres[:genres.index("</div>")].replace("\n", "")
+        soup = BeautifulSoup(genres, "html.parser")
+        genre_list = []
+        for row in soup.find_all('a'):
+            genre = row.text.split(" & ")
+            genre_list.extend(genre)
+        for genre in genre_list:
+            sql = f'INSERT INTO author_genres VALUES("{author_name}","{genre}")'
+            cursor.execute(sql)
+        con.commit()
+        print("Author genres added.")
+    else:
+        print("Author is already in db.")
+
 
 def get_book_info(book):
     book_content = get_content_url(f'https://www.goodreads.com/book/show/{book}')
@@ -78,9 +102,10 @@ def get_book_info(book):
     except AttributeError:
         title = re.search("'og:type'>\n<meta content=\"(.*)\" property='og:title'>", book_content, re.DOTALL).group(1)
 
+    title = title.replace("amp;", "")
     print("Title is:", title)
     author_link = re.search("<meta content='(.*)' property='books:author'>", book_content).group(1)
-    author_name = author_link[author_link.rfind('.') + 1:].replace("_", " ")
+    author_name = author_link[author_link.rfind('.') + 1:].replace("_", " ").replace("amp;", "")
     print("Author is:", author_name, "and can be found at", author_link)
     full_date = re.search("Published(.*)<div class=\"buttons\">", book_content, re.DOTALL).group(1)
     year = re.search(".*([1-3][0-9]{3})", full_date, re.DOTALL).group(1)
@@ -88,15 +113,15 @@ def get_book_info(book):
     rating = re.search("<span itemprop=\"ratingValue\">\n(.*)\n</span>", book_content).group(1).replace(" ", "")
     print("Rating:", rating)
     index = get_book_index() + 1
+    add_author_genres(author_name, author_link)
     if add_book(index, title, author_name, year, isbn, rating, url) is False:
         return None
     add_book_genres(book_content, index)
-    add_author_genres(author_name,author_link)
     return "ok"
 
 
 def main():
-    content = get_content_url(f'https://www.goodreads.com/list/show/514.Best_Action_Adventure_Novels')
+    content = get_content_url(f'https://www.goodreads.com/list/show/8460.Best_Young_Adult_Realistic_Novels')
 
     book_list = re.findall("href=\"/book/show/(.*)\">", content)
     book_number = input(f"How many books to add(1-{len(book_list)})? ")
