@@ -9,8 +9,10 @@
 #include "Server.h"
 #include "Commands/Register.h"
 #include "Commands/Login.h"
+#include "Commands/Search.h"
 #include <algorithm>
 #include <string>
+
 using namespace std;
 typedef void * (*THREADFUNCPTR)(void *);
 
@@ -20,6 +22,7 @@ struct sockaddr_in server_addr; //structure containing an internet address, in o
 struct sockaddr_in from; //structure containing an internet address, in out case the address of our client
 unsigned short portNum;
 int ServerNetwork::number_of_threads=0;
+
 
 ServerNetwork::ServerNetwork() {}
 ServerNetwork::~ServerNetwork() {}
@@ -94,7 +97,7 @@ void ServerNetwork::Answer(void *arg){
         Receive(command, length_of_message, tdL);
 
         string message_to_send;
-        int return_code = IsValid(command, message_to_send);
+        int return_code = IsValid(command, message_to_send,tdL);
         if (return_code == 0){
             message_to_send = "Command not known";
         }
@@ -149,7 +152,7 @@ void ServerNetwork::SendLength(int length,thData tdL){
         perror("Error when writing to client");
     }
 }
-int ServerNetwork::IsValid(string buffer, string& message) {
+int ServerNetwork::IsValid(string buffer, string& message, thData tdL) {
     vector<string> argument_list;
     string command;
     ParseCommand(buffer,argument_list, command);
@@ -163,13 +166,22 @@ int ServerNetwork::IsValid(string buffer, string& message) {
     else if(command=="login"){
         Login loginCommand(argument_list,server);
         message = loginCommand.Execute();
+        //connected_threads.push_back(tdL.idThread);
         return 1;
     }
     else if(command=="search"){
-
+        Search searchCommand(argument_list,server);
+        message = searchCommand.Execute();
+        return 1;
     }
-    else if(command=="exit")
+    else if(command=="exit"){
+        //auto it = find(connected_threads.begin(),connected_threads.end(),tdL.idThread);
+        //if(it!=connected_threads.end())
+            //connected_threads.erase(it);
         return -1;
+    }
+
+
 
     return 0;
 }

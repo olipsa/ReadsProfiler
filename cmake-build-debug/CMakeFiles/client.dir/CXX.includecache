@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ondina/CLionProjects/ReadsProfiler/Client/Client.cpp
-Client.h
-/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
-
 /home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
 ClientNetwork.h
 /home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
@@ -35,8 +31,4 @@ Client.h
 /home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
 string
 -
-
-/home/ondina/CLionProjects/ReadsProfiler/Client/main.cpp
-Client.h
-/home/ondina/CLionProjects/ReadsProfiler/Client/Client.h
 

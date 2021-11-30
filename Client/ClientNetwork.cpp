@@ -80,7 +80,7 @@ void ClientNetwork::receive(int length) {
     if(message == "Exited program..."){
         isConnected=false;
     }
-    cout<<"Received message is: \""<<message.c_str()<<"\"\n";
+    cout<<message.c_str()<<"\"\n";
 
 }
 int ClientNetwork::receive_length() {

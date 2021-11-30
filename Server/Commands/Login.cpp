@@ -16,12 +16,12 @@ string Login::Execute() {
     string username=arguments[0];
     string password=arguments[1];
     string sql="SELECT * FROM users WHERE username =\""+username+"\"";
-    vector<string> query_results;
+    vector<vector<string>> query_results;
     Database db=server->getDatabase();
     if(db.GetQueryResults(sql,query_results)) {
         if(!query_results.empty()){
-            if(query_results[1]==password)
-                return "Logged in with success.\nWelcome, "+query_results[0]+"!";
+            if(query_results[0][1]==password)
+                return "Logged in with success.\nWelcome, "+query_results[0][0]+"!";
             else
                 return "Incorrect password. Please try again.";
         }

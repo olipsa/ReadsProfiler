@@ -2,13 +2,19 @@
 // Created by ondina on 26.11.2021.
 //
 
-#ifndef UNTITLED2_SEARCH_H
-#define UNTITLED2_SEARCH_H
+#pragma once
+#include "Register.h"
+#include "../Server.h"
+#include <string>
+#include <vector>
 
 
-class Search {
-
+class Search:public Command {
+    std::vector<std::string>arguments;
+    Server *server;
+public:
+    Search(std::vector <std::string>, Server*);
+    std::string Execute();
 };
 
 
-#endif //UNTITLED2_SEARCH_H

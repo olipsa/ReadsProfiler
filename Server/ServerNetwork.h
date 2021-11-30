@@ -10,6 +10,7 @@ typedef struct thData{
 class ServerNetwork {
     pthread_t threads[100];
     static int number_of_threads;
+    vector<int>connected_threads;
 public:
     ServerNetwork();
     ~ServerNetwork();
@@ -24,7 +25,7 @@ public:
     void SendLength(int,thData);
     void Receive(string&,int,thData);
     void ReceiveLength(int&,thData);
-    int IsValid(string,string&);
+    int IsValid(string,string&,thData);
     void ParseCommand(string,vector<string>&, string&);
     //void ServeClient(Command command);
 

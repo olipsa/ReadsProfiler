@@ -20,8 +20,13 @@ CMakeFiles/server.dir/Server/Commands/Register.cpp.o: \
  ../Server/Server.h \
  ../Server/ServerNetwork.h
 CMakeFiles/server.dir/Server/Commands/Search.cpp.o: \
+ ../Server/Commands/Command.h \
+ ../Server/Commands/Register.h \
  ../Server/Commands/Search.cpp \
- ../Server/Commands/Search.h
+ ../Server/Commands/Search.h \
+ ../Server/Database.h \
+ ../Server/Server.h \
+ ../Server/ServerNetwork.h
 CMakeFiles/server.dir/Server/Database.cpp.o: \
  ../Server/Database.cpp \
  ../Server/Database.h
@@ -34,6 +39,7 @@ CMakeFiles/server.dir/Server/ServerNetwork.cpp.o: \
  ../Server/Commands/Command.h \
  ../Server/Commands/Login.h \
  ../Server/Commands/Register.h \
+ ../Server/Commands/Search.h \
  ../Server/Database.h \
  ../Server/Server.h \
  ../Server/ServerNetwork.cpp \

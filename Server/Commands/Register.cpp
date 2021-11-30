@@ -17,7 +17,7 @@ string Register::Execute() {
     string username=arguments[0];
     string password=arguments[1];
     string sql="SELECT * FROM users WHERE username =\""+username+"\"";
-    vector<string> query_results;
+    vector<vector<string>> query_results;
     Database db=server->getDatabase();
     if(db.GetQueryResults(sql,query_results)) {
         if(!query_results.empty())

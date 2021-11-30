@@ -26,21 +26,20 @@ bool Database::ExecuteQuery(const std::string & query) {
 void Database::CloseDatabase() {
     sqlite3_close(database);
 }
-bool Database::GetQueryResults(const std::string & query, vector<string>&query_result){
+bool Database::GetQueryResults(const std::string & query, vector<vector<string>>&query_result){
     if(sqlite3_exec(database,query.c_str(),callback,&query_result,&db_error)!=SQLITE_OK){
         cout<<"Couldn't execute following query: "<<query<<endl;
         sqlite3_free(db_error);
         return false;
     }
-    cout<<"Query "<<query<<" executed with the following results:\n";
-    for(int i=0;i<query_result.size();i++)
-        cout<<query_result[i]<<' ';
-    cout<<endl;
+    cout<<"Query "<<query<<" executed successfully.";
     return true;
 }
 int Database::callback(void *data, int argc, char **argv, char **azColName){
-    vector<string>*query_result=(vector<string>*)data;
+    vector<vector<string>>*query_result=(vector<vector<string>>*)data;
+    vector<string>line;
     for(int i=0;i<argc;i++)
-        query_result->push_back((argv[i]?argv[i]:"NULL"));
+        line.push_back((argv[i]?argv[i]:"NULL"));
+    query_result->push_back(line);
     return 0;
 }

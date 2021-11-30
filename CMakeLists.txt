@@ -9,7 +9,8 @@ set(PROJECT_HEADERS_SERVER
         Server/Database.h
         Server/Commands/Command.h
         Server/Commands/Register.h
-        Server/Commands/Login.h)
+        Server/Commands/Login.h
+        Server/Commands/Search.h)
 
 set(PROJECT_SOURCES_SERVER
         Server/main.cpp
@@ -18,7 +19,8 @@ set(PROJECT_SOURCES_SERVER
         Server/Database.cpp
         Server/Commands/Command.cpp
         Server/Commands/Register.cpp
-        Server/Commands/Login.cpp Server/Commands/Search.cpp Server/Commands/Search.h)
+        Server/Commands/Login.cpp
+        Server/Commands/Search.cpp)
 
 set(PROJECT_HEADERS_CLIENT
         Client/Client.h

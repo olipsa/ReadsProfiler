@@ -14,7 +14,7 @@ public:
     bool OpenDatabase(const char *);
     bool ExecuteQuery(const std::string &);
     static int callback(void *data, int argc, char **argv, char **azColName);
-    bool GetQueryResults(const std::string &,std::vector<std::string>&);
+    bool GetQueryResults(const std::string &,std::vector<std::vector<std::string>>&);
     void CloseDatabase();
 
 };
