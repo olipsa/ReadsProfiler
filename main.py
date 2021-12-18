@@ -29,33 +29,64 @@ def get_book_index():
     return max_id
 
 
-def add_book(id_book, title, author, year, ISBN, rating, URL):
+def add_book(title, author, year, ISBN, rating, URL, image):
     global con, cursor
-    sql_insert = f'INSERT INTO books VALUES({id_book},"{title}","{author}",{year},{ISBN},{rating},"{URL}")'
+    sql_insert = f'INSERT INTO books VALUES("{title}","{author}",{year},{ISBN},{rating},"{URL}","{image}", NULL)'
     try:
         cursor.execute(sql_insert)
     except sqlite3.IntegrityError:
         print("Book is already in db.")
         return False
-    con.commit()
-    print("Book added.")
-    return True
+    else:
+        con.commit()
+        print("Book added.")
+        return True
 
 
-def add_book_genres(page_content, book_index):
+def add_book_genres(page_content, book_isbn):
     global con, cursor
-    genre_list = re.findall("<a class=\"actionLinkLite bookPageGenreLink\" href=\"/genres/(.*)</a>", page_content)
-    for i, genre in enumerate(genre_list):
-        index = genre.index('>')
-        genre_list[i] = genre[index + 1:].replace("amp;", "")
-    genre_dict = dict.fromkeys(genre_list)
-    genre_dict.pop('Audiobook', None)
-    genre_list = list(genre_dict)
-    for genre in genre_list:
-        sql = f'INSERT INTO book_genres VALUES({book_index},"{genre}")'
-        cursor.execute(sql)
+    soup = BeautifulSoup(page_content, "html.parser")
+    my_genres = soup.findAll("div", class_="elementList")
+    if len(my_genres) == 0:
+        return
+    genre_dict = dict()
+    for i, genre in enumerate(my_genres):
+        if len(genre_dict) > 3:
+            break
+        all = genre.findAll('a')
+        if len(all) == 0:
+            continue
+        book_genre = all[0].text
+        if book_genre in genre_dict and genre_dict[book_genre] is not None or book_genre == '' or book_genre == 'Audiobook':
+            continue
+        if len(all) == 1:
+            genre_dict[book_genre] = None
+        else:
+            book_subgenre = all[1].text
+            genre_dict[book_genre] = book_subgenre
+
+    print("genre_dict:", genre_dict)
+
+    for genre, subgenre in genre_dict.items():
+        sql_genre = f'INSERT INTO book_genres VALUES({book_isbn},"{genre}")'
+        sql_subgenre = f'INSERT INTO book_genres VALUES({book_isbn},"{subgenre}")'
+        sql_hierarchy = f'INSERT INTO genre_hierarchy VALUES("{genre}","{subgenre}")'
+        try:
+            cursor.execute(sql_genre)
+        except sqlite3.IntegrityError:
+            pass
+        if subgenre is not None:
+            try:
+                cursor.execute(sql_subgenre)
+            except sqlite3.IntegrityError:
+                pass
+            try:
+                cursor.execute(sql_hierarchy)
+            except sqlite3.IntegrityError:
+                pass
+
     con.commit()
-    print("Genre added.")
+    print("Genres and subgenres added.")
 
 
 def add_author_genres(author_name, author_link):
@@ -78,6 +109,7 @@ def add_author_genres(author_name, author_link):
         for row in soup.find_all('a'):
             genre = row.text.split(" & ")
             genre_list.extend(genre)
+        genre_list = list(dict.fromkeys(genre_list))
         for genre in genre_list:
             sql = f'INSERT INTO author_genres VALUES("{author_name}","{genre}")'
             cursor.execute(sql)
@@ -107,21 +139,28 @@ def get_book_info(book):
     author_link = re.search("<meta content='(.*)' property='books:author'>", book_content).group(1)
     author_name = author_link[author_link.rfind('.') + 1:].replace("_", " ").replace("amp;", "")
     print("Author is:", author_name, "and can be found at", author_link)
-    full_date = re.search("Published(.*)<div class=\"buttons\">", book_content, re.DOTALL).group(1)
-    year = re.search(".*([1-3][0-9]{3})", full_date, re.DOTALL).group(1)
-    print("Published on:", year)
+    try:
+        full_date = re.search("Published(.*)<div class=\"buttons\">", book_content, re.DOTALL).group(1)
+    except AttributeError:
+        year = "NULL"
+    else:
+        year = re.search(".*([1-3][0-9]{3})", full_date, re.DOTALL).group(1)
+        print("Published on:", year)
     rating = re.search("<span itemprop=\"ratingValue\">\n(.*)\n</span>", book_content).group(1).replace(" ", "")
     print("Rating:", rating)
-    index = get_book_index() + 1
+    image_url = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/'
+    image = image_url + re.search(f"<meta content='{image_url}(.*)' property='og:image'>", book_content).group(1)
+    print("Image: ", image)
     add_author_genres(author_name, author_link)
-    if add_book(index, title, author_name, year, isbn, rating, url) is False:
+    if add_book(title, author_name, year, isbn, rating, url, image) is False:
         return None
-    add_book_genres(book_content, index)
+    add_book_genres(book_content, isbn)
     return "ok"
 
 
 def main():
-    content = get_content_url(f'https://www.goodreads.com/list/show/8460.Best_Young_Adult_Realistic_Novels')
+    input_url = input("Insert the url from Good Reads: ")
+    content = get_content_url(input_url)
 
     book_list = re.findall("href=\"/book/show/(.*)\">", content)
     book_number = input(f"How many books to add(1-{len(book_list)})? ")
