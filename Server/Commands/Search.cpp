@@ -7,10 +7,13 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-Search::Search(vector<string> arguments,Server *server) {
-this->arguments=arguments;
-this->server=server;
+
+Search::Search(vector<string> arguments,Server *server) : Command(arguments,server) {}
+
+vector<pair<int,string>>Search::get_search_result(){
+    return search_result;
 }
+
 string Search::Execute(){
     if(arguments.size()<2)
         return "After search you should type the criterion to search for and it's value.";
@@ -36,8 +39,10 @@ string Search::Execute(){
             string books_found="";
             for(int i=0;i<query_results.size();i++){
                 books_found += to_string(i+1)+". \"";
-                string title = query_results[i][1];
-                string author = query_results[i][2];
+                string title = query_results[i][0];
+                string author = query_results[i][1];
+                string isbn = query_results[i][3];
+                search_result.push_back({i+1,isbn});
                 bool has_collection = false;
                 for(int j=0;j<title.size();j++) {
                     if (title[j + 1] == '(') {
@@ -54,4 +59,6 @@ string Search::Execute(){
         }
 
     }
+    else
+        return "Internal error occurred.";
 }

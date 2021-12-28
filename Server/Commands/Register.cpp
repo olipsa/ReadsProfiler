@@ -6,19 +6,13 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
-Register::Register(vector<string> arguments,Server *server) {
-    this->arguments=arguments;
-    this->server=server;
-}
+Register::Register(vector<string> arguments,Server *server): Command(arguments,server) {}
 string Register::Execute() {
     if(arguments.size()!=2)
         return "After register you should type your username and password separated by space.";
     string username=arguments[0];
     string password=arguments[1];
     string sql="SELECT * FROM users WHERE username =\""+username+"\"";
-    vector<vector<string>> query_results;
-    Database db=server->getDatabase();
     if(db.GetQueryResults(sql,query_results)) {
         if(!query_results.empty())
             return "Username already exists.";

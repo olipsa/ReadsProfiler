@@ -8,8 +8,6 @@
 #include <vector>
 
 class Register:public Command {
-    std::vector<std::string>arguments;
-    Server *server;
 public:
     Register(std::vector <std::string>, Server*);
     std::string Execute();

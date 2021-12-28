@@ -10,10 +10,10 @@
 
 
 class Search:public Command {
-    std::vector<std::string>arguments;
-    Server *server;
+    vector<pair<int,string>> search_result;
 public:
     Search(std::vector <std::string>, Server*);
+    vector<pair<int,string>> get_search_result();
     std::string Execute();
 };
 

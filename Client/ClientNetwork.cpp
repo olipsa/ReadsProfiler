@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <cstring>
+#include <fstream>
 #include "ClientNetwork.h"
 #include "Client.h"
 
@@ -62,13 +63,40 @@ void ClientNetwork::send(char *buffer) {
         cout<<"Error when sending message\n";
         exit(0);
     }
-    cout<<"Message sent successfully\n";
 }
 void ClientNetwork::send_length(int length) {
     if(write(client_sd,&length,sizeof(length))==-1){
         cout<<"Error when sending message\n";
         exit(0);
     }
+}
+void ClientNetwork::send_file(const char * file_path) {
+    cout<<file_path<<endl;
+    FILE *book, *book_copy;
+    book = fopen("divergent.pdf", "rb");
+    if(book == NULL)
+        cout<<"Unable to open pdf.\n";
+    book_copy = fopen("9780743477116.pdf", "wb");
+    if(book_copy == NULL)
+        cout<<"Unable to open pdf copy.\n";
+    ifstream in("divergent.pdf", ios::binary);
+    if(in.fail())
+    {
+        cout<<"\nThe file couldn't be opened\n";
+        exit(0);
+    }
+    int *buf;
+    while(!feof(book)){
+        cout<<"0";
+        fread(buf,1,1,book);
+        cout<<"1";
+        fwrite(buf,1,1,book_copy);
+        cout<<"2";
+    }
+    cout<<"File copied successfully.\n";
+    fclose(book);
+    fclose(book_copy);
+
 }
 void ClientNetwork::receive(int length) {
     string message;
@@ -80,7 +108,10 @@ void ClientNetwork::receive(int length) {
     if(message == "Exited program..."){
         isConnected=false;
     }
-    cout<<message.c_str()<<"\"\n";
+    cout<<message.c_str()<<"\n";
+    if(message == "Start sending file."){
+        send_file("romeo-and-juliet.pdf");
+    }
 
 }
 int ClientNetwork::receive_length() {

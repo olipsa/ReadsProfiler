@@ -23,6 +23,8 @@ unistd.h
 -
 cstring
 -
+fstream
+-
 ClientNetwork.h
 /home/ondina/CLionProjects/ReadsProfiler/Client/ClientNetwork.h
 Client.h

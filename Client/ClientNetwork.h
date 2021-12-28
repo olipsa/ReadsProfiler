@@ -13,6 +13,7 @@ public:
     void connect(const char *, int );
     void send(char[]);
     void send_length(int);
+    void send_file(const char *);
     void receive(int);
     int receive_length();
 

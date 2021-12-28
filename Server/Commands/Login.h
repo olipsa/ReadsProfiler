@@ -9,8 +9,6 @@
 
 
 class Login:public Command {
-    std::vector<std::string>arguments;
-    Server *server;
 public:
     Login(std::vector <std::string>, Server*);
     std::string Execute();

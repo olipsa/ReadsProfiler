@@ -151,6 +151,12 @@
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Command.h">
 			<Option target="server"/>
 		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Download.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Download.h">
+			<Option target="server"/>
+		</Unit>
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Login.cpp">
 			<Option target="server"/>
 		</Unit>
@@ -167,6 +173,12 @@
 			<Option target="server"/>
 		</Unit>
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Search.h">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Upload.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Upload.h">
 			<Option target="server"/>
 		</Unit>
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Database.cpp">
