@@ -2,8 +2,10 @@
 // Created by ondina on 02.08.2021.
 //
 #include <iostream>
+#include <fstream>
 #include "Database.h"
 using namespace std;
+ofstream logs("database.txt");
 Database::Database() {}
 Database::~Database() {}
 bool Database::OpenDatabase(const char *filename) {
@@ -32,7 +34,7 @@ bool Database::GetQueryResults(const std::string & query, vector<vector<string>>
         sqlite3_free(db_error);
         return false;
     }
-    cout<<"Query "<<query<<" executed successfully.\n";
+    cout<<"Query "<<query<<" executed\n";
     return true;
 }
 int Database::callback(void *data, int argc, char **argv, char **azColName){

@@ -46,6 +46,14 @@ CMakeFiles/server.dir/Server/Commands/Upload.cpp.o
  /home/ondina/CLionProjects/ReadsProfiler/Server/Database.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/Server.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/ServerNetwork.h
+CMakeFiles/server.dir/Server/Commands/View.cpp.o
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Command.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Register.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.cpp
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Database.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Server.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/ServerNetwork.h
 CMakeFiles/server.dir/Server/Database.cpp.o
  /home/ondina/CLionProjects/ReadsProfiler/Server/Database.cpp
  /home/ondina/CLionProjects/ReadsProfiler/Server/Database.h
@@ -61,6 +69,7 @@ CMakeFiles/server.dir/Server/ServerNetwork.cpp.o
  /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Register.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Search.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Upload.h
+ /home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/Database.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/Server.h
  /home/ondina/CLionProjects/ReadsProfiler/Server/ServerNetwork.cpp

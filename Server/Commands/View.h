@@ -9,8 +9,9 @@
 
 
 class View:public Command {
+    vector<string> search_result;
 public:
-    View(std::vector <std::string>, Server*);
+    View(std::vector <std::string>, Server*, vector<string>,string);
     std::string Execute();
 };
 

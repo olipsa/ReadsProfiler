@@ -10,6 +10,6 @@
 
 class Download:public Command {
 public:
-    Download(std::vector <std::string>, Server*);
+    Download(std::vector <std::string>, Server*,string);
     std::string Execute();
 };

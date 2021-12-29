@@ -12,7 +12,8 @@ set(PROJECT_HEADERS_SERVER
         Server/Commands/Login.h
         Server/Commands/Search.h
         Server/Commands/Upload.h
-        Server/Commands/Download.h)
+        Server/Commands/Download.h
+        Server/Commands/View.h)
 
 set(PROJECT_SOURCES_SERVER
         Server/main.cpp
@@ -24,7 +25,8 @@ set(PROJECT_SOURCES_SERVER
         Server/Commands/Login.cpp
         Server/Commands/Search.cpp
         Server/Commands/Upload.cpp
-        Server/Commands/Download.cpp)
+        Server/Commands/Download.cpp
+        Server/Commands/View.cpp)
 
 set(PROJECT_HEADERS_CLIENT
         Client/Client.h

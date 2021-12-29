@@ -6,7 +6,8 @@ using namespace std;
 typedef struct thData{
     int idThread;
     int cl;
-    vector<pair<int,string>> last_search_result;
+    string connected_user="";
+    vector<string> last_search_result;
 }thData;
 class ServerNetwork {
     pthread_t threads[100];
@@ -26,7 +27,7 @@ public:
     bool Receive(string&,int,thData);
     bool ReceiveLength(int&,thData);
     bool ReceiveFile(thData);
-    int IsValid(string,string&,thData);
+    int IsValid(string,string&,thData&);
     void ParseCommand(string,vector<string>&, string&);
     //void ServeClient(Command command);
 

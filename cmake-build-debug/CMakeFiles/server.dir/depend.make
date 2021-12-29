@@ -46,6 +46,14 @@ CMakeFiles/server.dir/Server/Commands/Upload.cpp.o: \
  ../Server/Database.h \
  ../Server/Server.h \
  ../Server/ServerNetwork.h
+CMakeFiles/server.dir/Server/Commands/View.cpp.o: \
+ ../Server/Commands/Command.h \
+ ../Server/Commands/Register.h \
+ ../Server/Commands/View.cpp \
+ ../Server/Commands/View.h \
+ ../Server/Database.h \
+ ../Server/Server.h \
+ ../Server/ServerNetwork.h
 CMakeFiles/server.dir/Server/Database.cpp.o: \
  ../Server/Database.cpp \
  ../Server/Database.h
@@ -61,6 +69,7 @@ CMakeFiles/server.dir/Server/ServerNetwork.cpp.o: \
  ../Server/Commands/Register.h \
  ../Server/Commands/Search.h \
  ../Server/Commands/Upload.h \
+ ../Server/Commands/View.h \
  ../Server/Database.h \
  ../Server/Server.h \
  ../Server/ServerNetwork.cpp \

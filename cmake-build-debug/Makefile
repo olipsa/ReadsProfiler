@@ -358,6 +358,30 @@ Server/Commands/Upload.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Commands/Upload.cpp.s
 .PHONY : Server/Commands/Upload.cpp.s
 
+Server/Commands/View.o: Server/Commands/View.cpp.o
+.PHONY : Server/Commands/View.o
+
+# target to build an object file
+Server/Commands/View.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Commands/View.cpp.o
+.PHONY : Server/Commands/View.cpp.o
+
+Server/Commands/View.i: Server/Commands/View.cpp.i
+.PHONY : Server/Commands/View.i
+
+# target to preprocess a source file
+Server/Commands/View.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Commands/View.cpp.i
+.PHONY : Server/Commands/View.cpp.i
+
+Server/Commands/View.s: Server/Commands/View.cpp.s
+.PHONY : Server/Commands/View.s
+
+# target to generate assembly for a file
+Server/Commands/View.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Commands/View.cpp.s
+.PHONY : Server/Commands/View.cpp.s
+
 Server/Database.o: Server/Database.cpp.o
 .PHONY : Server/Database.o
 
@@ -491,6 +515,9 @@ help:
 	@echo "... Server/Commands/Upload.o"
 	@echo "... Server/Commands/Upload.i"
 	@echo "... Server/Commands/Upload.s"
+	@echo "... Server/Commands/View.o"
+	@echo "... Server/Commands/View.i"
+	@echo "... Server/Commands/View.s"
 	@echo "... Server/Database.o"
 	@echo "... Server/Database.i"
 	@echo "... Server/Database.s"

@@ -8,9 +8,9 @@
 #include <algorithm>
 using namespace std;
 
-Search::Search(vector<string> arguments,Server *server) : Command(arguments,server) {}
+Search::Search(vector<string> arguments,Server *server, string username) : Command(arguments,server) {this->username=username;}
 
-vector<pair<int,string>>Search::get_search_result(){
+vector<string>Search::get_search_result(){
     return search_result;
 }
 
@@ -30,9 +30,9 @@ string Search::Execute(){
         sql = "SELECT * FROM books WHERE "+criterion+"="+arguments[1];
     else
         return "You can search books by title, author, year, rating or ISBN number.";
-    Database db =server->getDatabase();
     vector<vector<string>> query_results;
     if(db.GetQueryResults(sql,query_results)){
+        cout<<"Books found: "<<query_results.size()<<endl;
         if(query_results.empty())
             return "No results found.";
         else{
@@ -42,7 +42,6 @@ string Search::Execute(){
                 string title = query_results[i][0];
                 string author = query_results[i][1];
                 string isbn = query_results[i][3];
-                search_result.push_back({i+1,isbn});
                 bool has_collection = false;
                 for(int j=0;j<title.size();j++) {
                     if (title[j + 1] == '(') {
@@ -54,6 +53,9 @@ string Search::Execute(){
                 if(has_collection==false)
                     books_found += "\"";
                 books_found += " by "+author+"\n";
+                search_result.push_back(isbn);
+                cout<<"username:"+this->username<<endl;
+                AddUserActivity("searches", isbn);
             }
             return books_found;
         }

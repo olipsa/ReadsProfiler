@@ -13,13 +13,16 @@ string Register::Execute() {
     string username=arguments[0];
     string password=arguments[1];
     string sql="SELECT * FROM users WHERE username =\""+username+"\"";
+    vector<vector<string>> query_results;
     if(db.GetQueryResults(sql,query_results)) {
         if(!query_results.empty())
             return "Username already exists.";
-        sql="INSERT INTO users VALUES(\""+username+"\",\""+password+"\")";
-        if(db.ExecuteQuery(sql))
+        string sql1="INSERT INTO users VALUES(\""+username+"\",\""+password+"\")";
+        string sql2="INSERT INTO user_activity(username) VALUES(\""+username+"\")";
+        if(db.ExecuteQuery(sql1)){
+            db.ExecuteQuery(sql2);
             return "Account created.";
-
+        }
     }
     return "Account not created.";
 }

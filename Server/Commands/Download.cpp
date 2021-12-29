@@ -8,7 +8,7 @@
 #include <algorithm>
 using namespace std;
 
-Download::Download(vector<string> arguments,Server *server) : Command(arguments,server) {}
+Download::Download(vector<string> arguments,Server *server,string username) : Command(arguments,server) {this->username=username;}
 
 string Download::Execute() {
     if(arguments.size()!=1)
@@ -18,8 +18,10 @@ string Download::Execute() {
         return "No book available with the isbn "+isbn;
     else{
         string sql = "SELECT image FROM books WHERE isbn="+isbn;
+        vector<vector<string>> query_results;
         if(db.GetQueryResults(sql,query_results)) {
             if(!query_results.empty()){
+                AddUserActivity("downloads",isbn);
                 return query_results[0][0];
             }
         }

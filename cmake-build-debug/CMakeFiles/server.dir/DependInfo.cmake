@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Register.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Commands/Register.cpp.o"
   "/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Search.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Commands/Search.cpp.o"
   "/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Upload.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Commands/Upload.cpp.o"
+  "/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Commands/View.cpp.o"
   "/home/ondina/CLionProjects/ReadsProfiler/Server/Database.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Database.cpp.o"
   "/home/ondina/CLionProjects/ReadsProfiler/Server/Server.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/Server.cpp.o"
   "/home/ondina/CLionProjects/ReadsProfiler/Server/ServerNetwork.cpp" "/home/ondina/CLionProjects/ReadsProfiler/cmake-build-debug/CMakeFiles/server.dir/Server/ServerNetwork.cpp.o"

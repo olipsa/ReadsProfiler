@@ -181,6 +181,12 @@
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/Upload.h">
 			<Option target="server"/>
 		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Commands/View.h">
+			<Option target="server"/>
+		</Unit>
 		<Unit filename="/home/ondina/CLionProjects/ReadsProfiler/Server/Database.cpp">
 			<Option target="server"/>
 		</Unit>
