@@ -2,10 +2,8 @@
 // Created by ondina on 02.08.2021.
 //
 #include <iostream>
-#include <fstream>
 #include "Database.h"
 using namespace std;
-ofstream logs("database.txt");
 Database::Database() {}
 Database::~Database() {}
 bool Database::OpenDatabase(const char *filename) {
@@ -17,7 +15,7 @@ bool Database::OpenDatabase(const char *filename) {
     return true;
 }
 bool Database::ExecuteQuery(const std::string & query) {
-    if(sqlite3_exec(database, query.c_str(), callback,0, &db_error)!=SQLITE_OK){
+    if(sqlite3_exec(database, query.c_str(), callback, nullptr, &db_error)!=SQLITE_OK){
         cout<<"Couldn't execute following query: "<<query<<endl;
         sqlite3_free(db_error);
         return false;
@@ -38,7 +36,7 @@ bool Database::GetQueryResults(const std::string & query, vector<vector<string>>
     return true;
 }
 int Database::callback(void *data, int argc, char **argv, char **azColName){
-    vector<vector<string>>*query_result=(vector<vector<string>>*)data;
+    auto*query_result=(vector<vector<string>>*)data;
     vector<string>line;
     for(int i=0;i<argc;i++)
         line.push_back((argv[i]?argv[i]:"NULL"));

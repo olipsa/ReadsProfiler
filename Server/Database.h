@@ -5,9 +5,9 @@
 #include <sqlite3.h>
 
 class Database {
-    sqlite3 *database;
-    char * db_error;
-    int status;
+    sqlite3 *database{};
+    char * db_error{};
+    int status{};
 public:
     Database();
     ~Database();

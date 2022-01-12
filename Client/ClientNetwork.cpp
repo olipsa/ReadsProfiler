@@ -22,6 +22,7 @@ ClientNetwork::ClientNetwork(void *data) {
 }
 
 void ClientNetwork::create_socket() {
+    cout<<"create-socket\n";
     client_sd=socket(AF_INET,SOCK_STREAM,0);
     if(client_sd<0){
         cout<<"Error with socket client"<<endl;
@@ -33,22 +34,32 @@ void ClientNetwork::create_socket() {
 
 }
 void ClientNetwork::connect(const char *address, int portNum) {
+    cout<<"connect\n";
     client_addr.sin_family=AF_INET;
     client_addr.sin_addr.s_addr=inet_addr(address);
     client_addr.sin_port=htons(portNum);
+    cout<<41<<endl;
     if (::connect(client_sd,(struct sockaddr *)&client_addr, sizeof(client_addr)) == -1){
         cout<<"Connection to the server failed\n";
         exit(0);
     }
+    cout<<46<<endl;
     cout<<"Connected to the server"<<endl;
     isConnected=true;
+    cout<<49<<endl;
 
     char *buffer;
+    cout<<52<<endl;
     while(isConnected){
         cout<<"Enter your message: ";
+        cout<<55<<endl;
         fflush(stdout);
+        cout<<57<<endl;
+        buffer= static_cast<char *>(malloc(1024));
         cin.getline(buffer,1024);
+        cout<<59<<endl;
         send_length(strlen(buffer));
+        cout<<61<<endl;
         send(buffer);
         int length=receive_length();
         receive(length);
@@ -59,18 +70,21 @@ void ClientNetwork::connect(const char *address, int portNum) {
 
 }
 void ClientNetwork::send(char *buffer) {
+    cout<<"send\n";
     if(write(client_sd,buffer,strlen(buffer))==-1){
         cout<<"Error when sending message\n";
         exit(0);
     }
 }
 void ClientNetwork::send_length(int length) {
+    cout<<"send_length\n";
     if(write(client_sd,&length,sizeof(length))==-1){
         cout<<"Error when sending message\n";
         exit(0);
     }
 }
 void ClientNetwork::send_file(const char * file_path) {
+    cout<<"send_file\n";
     cout<<file_path<<endl;
     FILE *book, *book_copy;
     book = fopen("divergent.pdf", "rb");
@@ -99,6 +113,7 @@ void ClientNetwork::send_file(const char * file_path) {
 
 }
 void ClientNetwork::receive(int length) {
+    cout<<"receive\n";
     string message;
     message.resize(length);
     if(read(client_sd, &message[0],length)==-1){
@@ -115,6 +130,7 @@ void ClientNetwork::receive(int length) {
 
 }
 int ClientNetwork::receive_length() {
+    cout<<"receive_length";
     int length;
     if(read(client_sd,&length,sizeof(int))==-1){
         cout<<"Error when receiving length\n";
